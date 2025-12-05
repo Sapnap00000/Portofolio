@@ -1,0 +1,118 @@
+body {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+/* All the elements with class container */
+.container {
+  width: 80%;
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+/* Header */
+header {
+  background: #444;
+  color: #fff;
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+}
+header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+/* Menu bar in Header */
+header nav ul {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+header nav ul li {
+  margin-left: 20px;
+}
+header nav a {
+  color: #fff;
+  text-decoration: none;
+}
+
+/* Opening section or title */
+#hero {
+  background-color: #f8f8f8;
+  text-align: center;
+  padding: 5rem 0;
+}
+#hero div img {
+  width: 50%;
+  height: auto;
+  border-radius: 50%;
+
+  animation: float 4s ease-in-out infinite;
+}
+#hero h2 {
+  margin-bottom: 1rem;
+
+  animation: float 4s ease-in-out infinite;
+}
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+/* Link to my works in opening section */
+.btn {
+  background-color: #008000;
+  color: #fff;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+/* All elements for section */
+section {
+  padding: 4rem 0;
+}
+section h2 {
+  margin-bottom: 2rem;
+  width: 100%;
+}
+/* Projects section */
+#projects .container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.project {
+  width: 30%;
+  border: 1px solid #ddd;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  box-sizing: border-box;
+  flex-grow: 1;
+  min-width: 250px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.project img {
+  width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+  display: block;
+}
+
+/* Footer */
+footer {
+  background-color: #444;
+  color: #fff;
+  text-align: center;
+  padding: 1rem 0;
+}
