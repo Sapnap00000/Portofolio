@@ -1,0 +1,39 @@
+# IDE & Editor
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+
+# Node modules (if using Node.js in the future)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Build & Output
+dist/
+build/
+*.min.js
+*.min.css
+
+# Local env
+.env
+.env.local
+
+# Logs
+logs/
+*.log
+
+# Temporary files
+*.tmp
+temp/
