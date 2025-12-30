@@ -1,19 +1,30 @@
 // ================================
-// CUSTOM JAVASCRIPT FOR PORTFOLIO
+// PORTFOLIO CUSTOM JAVASCRIPT
 // ================================
+// Organized to match HTML structure for better readability
 
 document.addEventListener("DOMContentLoaded", function () {
-  // Initialize features
+  // Initialize all features in order
   initNavigation();
-  initScrollEffects();
-  initContactLinks();
   initParticles();
-  initCardInteractions();
   initAwardSystem();
+  initScrollEffects();
+  initCardInteractions();
+  initContactLinks();
+
+  // Log startup message
+  console.log("✨ Welcome to Jay Portfolio!");
+  console.log("Thank you for visiting.");
 });
 
 /**
- * Initialize navigation smooth scrolling
+ * ================================
+ * HEADER / NAVIGATION
+ * ================================
+ */
+
+/**
+ * Initialize navigation smooth scrolling and interactions
  */
 function initNavigation() {
   const navLinks = document.querySelectorAll(".nav-link");
@@ -48,68 +59,15 @@ function initNavigation() {
 }
 
 /**
- * Add scroll effects to elements
+ * ================================
+ * HERO SECTION
+ * ================================
  */
-function initScrollEffects() {
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.style.animation = "fadeInUp 0.6s ease-out forwards";
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    {
-      threshold: 0.1,
-      rootMargin: "0px 0px -50px 0px",
-    }
-  );
-
-  // Observe all project cards and sections
-  const elements = document.querySelectorAll(
-    ".project-card, .about-content, .contact-content"
-  );
-  elements.forEach((element) => {
-    observer.observe(element);
-  });
-}
 
 /**
- * Handle contact links with validation
+ * Initialize award/like system with localStorage persistence
+ * One-time award per device - irreversible
  */
-function initContactLinks() {
-  const emailLink = document.querySelector('a[href^="mailto:"]');
-
-  if (emailLink) {
-    emailLink.addEventListener("click", function (e) {
-      // Check if email is valid format
-      const email = this.getAttribute("href").replace("mailto:", "");
-      if (!isValidEmail(email)) {
-        e.preventDefault();
-        alert("Email address is invalid");
-      }
-    });
-  }
-}
-
-/**
- * Validate email format
- */
-function isValidEmail(email) {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
-}
-
-/**
- * Log portfolio loaded message
- */
-console.log("Welcome to Jay Portfolio! 👋");
-console.log("Thank you for visiting my portfolio.");
-
-/* ================================
-   AWARD SYSTEM (ONE-TIME VALIDATION)
-   ================================ */
 function initAwardSystem() {
   const awardBtn = document.getElementById("awardBtn");
   const awardCountEl = document.querySelector(".award-count");
@@ -124,7 +82,7 @@ function initAwardSystem() {
   // Display current count
   awardCountEl.textContent = awardCount;
 
-  // If already awarded, disable button
+  // If already awarded in this session, disable button
   if (isAwarded) {
     awardBtn.classList.add("awarded");
     awardBtn.disabled = true;
@@ -141,7 +99,7 @@ function initAwardSystem() {
       return;
     }
 
-    // Mark as awarded
+    // Mark as awarded (irreversible)
     localStorage.setItem("portfolio-awarded", "true");
 
     // Increment and save award count
@@ -163,7 +121,7 @@ function initAwardSystem() {
 }
 
 /**
- * Show celebration animation feedback
+ * Show celebration animation when award is given
  */
 function showCelebration() {
   const celebration = document.createElement("div");
@@ -183,18 +141,26 @@ function showCelebration() {
   setTimeout(() => celebration.remove(), 800);
 }
 
-/* ================================
-   PARTICLES BACKGROUND (CANVAS)
-   Lightweight particle system tuned for performance
-   ================================ */
+/**
+ * ================================
+ * BACKGROUND EFFECTS (Canvas Particles)
+ * ================================
+ */
+
+/**
+ * Initialize lightweight particle background
+ * Reads CSS variable --primary-color for color
+ */
 function initParticles() {
   const canvas = document.getElementById("bg-canvas");
   if (!canvas) return;
+  
   const ctx = canvas.getContext("2d");
-
   let w = (canvas.width = innerWidth);
   let h = (canvas.height = innerHeight);
   const particles = [];
+
+  // Scale particles based on screen size
   const count = Math.max(20, Math.floor((w * h) / 90000));
 
   function rand(min, max) {
@@ -226,17 +192,23 @@ function initParticles() {
 
   function draw() {
     ctx.clearRect(0, 0, w, h);
+
+    // Get primary color from CSS root variables
     const cs = getComputedStyle(document.documentElement);
     const color = cs.getPropertyValue("--primary-color") || "#00ff88";
 
+    // Draw and update particles
     for (const p of particles) {
       p.x += p.vx;
       p.y += p.vy;
+
+      // Wrap particles at edges
       if (p.x < -10) p.x = w + 10;
       if (p.x > w + 10) p.x = -10;
       if (p.y < -10) p.y = h + 10;
       if (p.y > h + 10) p.y = -10;
 
+      // Create radial gradient glow effect
       const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 12);
       g.addColorStop(0, `${color}10`);
       g.addColorStop(0.6, `${color}05`);
@@ -254,12 +226,20 @@ function initParticles() {
   draw();
 }
 
-/* ================================
-   CARD TILT & MODAL INTERACTIONS
-   ================================ */
+/**
+ * ================================
+ * PROJECTS SECTION
+ * ================================
+ */
+
+/**
+ * Initialize card interactions: tilt effect and modal popups
+ */
 function initCardInteractions() {
   const cards = document.querySelectorAll(".project-card");
+  
   cards.forEach((card) => {
+    // Tilt effect on mouse move
     card.addEventListener("mousemove", (e) => {
       const rect = card.getBoundingClientRect();
       const cx = rect.left + rect.width / 2;
@@ -271,12 +251,14 @@ function initCardInteractions() {
       card.style.transform = `translateZ(0) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-6px)`;
       card.classList.add("tilt");
     });
+
+    // Reset tilt on mouse leave
     card.addEventListener("mouseleave", () => {
       card.style.transform = "";
       card.classList.remove("tilt");
     });
 
-    // Open modal on click and populate content
+    // Open modal on click with project content
     card.addEventListener("click", () => {
       const title = card.querySelector("h3")?.innerText || "Project";
       const img = card.querySelector("img")?.getAttribute("src") || "";
@@ -287,12 +269,80 @@ function initCardInteractions() {
         const label = modalEl.querySelector("#projectModalLabel");
         const mimg = modalEl.querySelector("#projectModalImage");
         const mdesc = modalEl.querySelector("#projectModalDesc");
+
         if (label) label.innerText = title;
         if (mimg) mimg.setAttribute("src", img);
         if (mdesc) mdesc.innerText = desc;
+
         const bsModal = new bootstrap.Modal(modalEl);
         bsModal.show();
       }
     });
   });
+}
+
+/**
+ * ================================
+ * SCROLL EFFECTS & ANIMATIONS
+ * ================================
+ */
+
+/**
+ * Add fade-in animations as elements scroll into view
+ * Uses IntersectionObserver for performance
+ */
+function initScrollEffects() {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.style.animation = "fadeInUp 0.6s ease-out forwards";
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      threshold: 0.1,
+      rootMargin: "0px 0px -50px 0px",
+    }
+  );
+
+  // Observe elements that should animate on scroll
+  const elements = document.querySelectorAll(
+    ".project-card, .about-content, .contact-content"
+  );
+  elements.forEach((element) => {
+    observer.observe(element);
+  });
+}
+
+/**
+ * ================================
+ * CONTACT SECTION
+ * ================================
+ */
+
+/**
+ * Handle contact links with email validation
+ */
+function initContactLinks() {
+  const emailLink = document.querySelector('a[href^="mailto:"]');
+
+  if (emailLink) {
+    emailLink.addEventListener("click", function (e) {
+      const email = this.getAttribute("href").replace("mailto:", "");
+      if (!isValidEmail(email)) {
+        e.preventDefault();
+        alert("Email address is invalid");
+      }
+    });
+  }
+}
+
+/**
+ * Validate email format
+ */
+function isValidEmail(email) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
 }
