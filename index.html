@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Portfolio website of Jay - A web developer">
     <meta name="keywords" content="portfolio, web developer, projects">
-    <link rel="icon" href="images/profile.jpg" type="image/jpeg">
+    <link rel="icon" href="images/fav-icon.png" type="image/png">
     <title>Jay Portfolio</title>
 
     <!-- External CSS -->
@@ -19,15 +19,17 @@
     <!-- Font Awesome Icons -->
     <script src="https://kit.fontawesome.com/05e172e30f.js" crossorigin="anonymous"></script>
 
-    <!-- Google Fonts -->
+    <!-- Google Fonts: Fira Code (primary) + JetBrains Mono (secondary) + Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Playwrite+AU+SA:wght@100..400&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@300;400;600;700&display=swap"
         rel="stylesheet">
 </head>
 
 <body data-bs-spy="scroll" data-bs-target="navbar" data-bs-offset="0">
+    <!-- Interactive background canvas -->
+    <canvas id="bg-canvas" aria-hidden="true"></canvas>
     <!-- Navigation Header -->
     <header>
         <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
@@ -35,7 +37,12 @@
                 <a class="navbar-brand fw-bold" href="#hero">Jay Portfolio</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+                    <svg class="hamburger-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="3" y1="6" x2="21" y2="6" class="hamburger-line line-top"></line>
+                        <line x1="3" y1="12" x2="21" y2="12" class="hamburger-line line-mid"></line>
+                        <line x1="3" y1="18" x2="21" y2="18" class="hamburger-line line-bottom"></line>
+                    </svg>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
@@ -48,9 +55,10 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#about">About</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#contact">Contact</a>
-                        </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="#contact">Contact</a>
+                                                </li>
+                                                
                     </ul>
                 </div>
             </div>
@@ -60,12 +68,89 @@
     <!-- Main Content -->
     <main>
         <!-- Hero Section -->
-        <section id="hero" class="hero-section">
-            <div class="container">
+        <section id="hero" class="hero-section hero-with-image">
+            <div class="hero-overlay"></div>
+            <img src="images/brand-badge.svg" alt="Brand badge" class="brand-badge-corner" aria-hidden="true">
+            <div class="container hero-content">
                 <img src="images/profile.jpg" alt="My Profile Picture" class="profile-image">
-                <h1>Welcome to my Portfolio</h1>
-                <p class="lead">I'm Jay, a passionate web developer</p>
-                <a href="#projects" class="btn btn-primary">View My Works</a>
+                <h1 class="gradient-title">Hey! I am Jay</h1>
+                <p class="lead gradient-lead">"Code Like a Maniac, Hack the Future!"</p>
+                <p class="hero-subtitle">Tech Enthusiast 🤖 | Enginer IoT 🛠️ | Penetration Testing 🔍 | Cyber Security 🔒 |
+                    Wibu 🔥</p>
+        
+                <div class="award-container">
+                    <button id="awardBtn" class="btn btn-award">
+                        <i class="fas fa-star"></i> Award This Portfolio
+                    </button>
+                    <div class="award-counter">
+                        <span class="award-count">0</span> <span class="award-label">Awards Given</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- About Section -->
+        <section id="about" class="about-section">
+            <div class="container">
+                <h2 class="section-title">About Me</h2>
+                <div class="about-content">
+                    <p> Saya adalah seorang tech enthusiast yang bergerak di persimpangan antara rekayasa, keamanan siber, dan
+                        kreativitas digital. Dengan latar belakang di bidang IoT engineering dan penetration testing, saya
+                        terbiasa
+                        berpikir sistematis, skeptis, dan berbasis bukti — memahami bagaimana sebuah sistem dibangun sekaligus
+                        bagaimana
+                        ia bisa ditembus.
+                    </p>
+                    <p>Dunia saya dipenuhi oleh kode: dari HTML, CSS, JavaScript, C++, hingga Python dan SQL, serta ekosistem
+                        Linux,
+                        Kali Linux, dan berbagai tools ofensif seperti Burp Suite, Metasploit, dan Wireshark.
+                    </p>
+                    <p> Di luar aspek teknis, saya juga nyaman berada di ranah visual dan produktivitas — mengolah desain,
+                        audio,
+                        dan
+                        simulasi dengan Blender, GIMP, Audacity, hingga CAD tools. Filosofi saya sederhana namun radikal: code
+                        like a
+                        maniac, hack the future — belajar tanpa henti, bereksperimen tanpa takut gagal, dan selalu selangkah
+                        lebih
+                        maju
+                        dari sistem yang ada.
+                    </p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Wallpaper / Assets Section -->
+        <section id="wallpapers" class="wallpaper-section">
+            <div class="container">
+                        <h2 class="section-title">Wallpaper & Assets</h2>
+                        <div class="wallpaper-grid">
+                            <div class="wallpaper-card" style="background-image: url('images/kali-strips.png')">
+                                <div class="overlay">
+                                    <div>
+                                        <h3>Kali Strips</h3>
+                                        <p class="muted">Striped aesthetic dengan aksen neon</p>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                            <div class="wallpaper-card" style="background-image: url('images/kali-red-sticker.jpg')">
+                                <div class="overlay">
+                                    <div>
+                                        <h3>Kali Sticker</h3>
+                                        <p class="muted">Versi sticker bergaya dark-red</p>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                            <div class="wallpaper-card" style="background-image: url('images/Arti_2.jpg')">
+                                <div class="overlay">
+                                    <div>
+                                        <h3>Arti</h3>
+                                        <p class="muted">Artwork personal untuk visual branding</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
             </div>
         </section>
 
@@ -77,6 +162,7 @@
                     <article class="project-card">
                         <img src="images/image-1.jpeg" alt="Mountain view photography">
                         <div class="project-content">
+                            <div class="project-badge"><img src="images/ornament.svg" alt=""></div>
                             <h3>Mountain Photography</h3>
                             <p>A beautiful mountain view captured in Bandungan Gedongsongo.
                                 This moment helped me relax and appreciate nature's beauty.</p>
@@ -86,6 +172,7 @@
                     <article class="project-card">
                         <img src="images/image-1.jpeg" alt="Photography project">
                         <div class="project-content">
+                            <div class="project-badge"><img src="images/ornament.svg" alt=""></div>
                             <h3>Nature Exploration</h3>
                             <p>Exploring natural landscapes and capturing moments that inspire.
                                 Each photo tells a story of adventure and discovery.</p>
@@ -95,26 +182,12 @@
                     <article class="project-card">
                         <img src="images/image-1.jpeg" alt="Scenic photography">
                         <div class="project-content">
+                            <div class="project-badge"><img src="images/ornament.svg" alt=""></div>
                             <h3>Travel Journey</h3>
                             <p>Documentation of my travel experiences and scenic views from
                                 different locations across beautiful landscapes.</p>
                         </div>
                     </article>
-                </div>
-            </div>
-        </section>
-
-        <!-- About Section -->
-        <section id="about" class="about-section">
-            <div class="container">
-                <h2 class="section-title">About Me</h2>
-                <div class="about-content">
-                    <p>Hello! I'm Jay, a passionate web developer dedicated to creating
-                        beautiful and functional websites. I believe in continuous learning
-                        and love exploring new technologies to improve my skills.</p>
-                    <p>This portfolio showcases some of my work and projects. I'm always
-                        excited to take on new challenges and collaborate with others to
-                        create amazing digital experiences.</p>
                 </div>
             </div>
         </section>

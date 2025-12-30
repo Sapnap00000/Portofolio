@@ -119,6 +119,18 @@ Edit `css/style.css` - Change CSS variables in `:root`:
 - **Tablet**: 768px - 1199px
 - **Mobile**: Below 768px
 
+## 🎛️ Tema & Interaktivitas
+
+- Website sekarang memiliki theme switcher (klik *Theme* di navbar). Tema yang tersedia:
+  - **Cyber Security**: Nuansa neon hijau/cyan, latar gelap
+  - **IoT Engineer**: Nuansa biru, feel teknis
+  - **Anime (Japan)**: Warna pink/pastel dan aksen hangat
+  - **Tech Enthusiast**: Aksen oranye/cyan
+
+- Tema disimpan di localStorage supaya preferensi tetap tersimpan di browser.
+
+- Terdapat background interaktif berbasis canvas (particles) dan efek tilt pada kartu proyek. Klik kartu proyek untuk membuka modal detail.
+
 ## 🔗 External Resources
 
 - [Bootstrap 5 Documentation](https://getbootstrap.com/docs/5.3/)
