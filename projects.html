@@ -226,6 +226,18 @@
                             </a>
                         </div>
                     </article>
+<!-- L milling machining product -->
+<article class="project-card">
+    <img src="images/l-block.jpg" alt="L Block" loading="lazy">
+    <div class="project-content">
+        <div class="project-badge"><img src="images/ornament.svg" alt=""></div>
+        <h3>L Block Machining</h3>
+        <p>Documentation of my L Block machining projects with precision and attention to detail.</p>
+        <p style="font-size: 0.9rem; color: var(--muted-text); margin-top: 8px;">
+            <i class="fas fa-map"></i> Milling Machining & Fabrication
+        </p>
+    </div>
+</article>
                 </div>
 
                 <script src="data/projects.js"></script>
@@ -240,14 +252,24 @@
                             const article = document.createElement('article');
                             article.className = 'project-card';
 
-                            // If this is the machining product, render the 5-image preview grid
-                            let mn                     ml = `
-                    <div clas    -preview">
-             src="imag        ing/as-roda-0.jpg" alt="Product 1" on             thumb" loading                 <img src="images/result-product-machining                ngOpenModal(1)" c                                             <img src="images/res                            odal(2)" class="gallery-thu                            <img src="images/result-product-machining/as-roda-3.j            "machiningOpenModal(3)" class="gallery-thumb                                                   <img src="images/result-product-machining/as-roda-4.jpg" alt="Product 5" onclick="machiningOpenModal(4)" class="gallery-thumb" loading="lazy">
+                            let mediaHtml = '';
+                            if (p.id === 'Machining-Product') {
+                                mediaHtml = `
+                                    <div class="machining-gallery-preview">
+                                        <img src="images/result-product-machining/as-roda-0.jpg" alt="Product 1" onclick="machiningOpenModal(0)" class="gallery-thumb" loading="lazy">
+                                        <img src="images/result-product-machining/as-roda-1.jpg" alt="Product 2" onclick="machiningOpenModal(1)" class="gallery-thumb" loading="lazy">
+                                        <img src="images/result-product-machining/as-roda-2.jpg" alt="Product 3" onclick="machiningOpenModal(2)" class="gallery-thumb" loading="lazy">
+                                        <img src="images/result-product-machining/as-roda-3.jpg" alt="Product 4" onclick="machiningOpenModal(3)" class="gallery-thumb" loading="lazy">
+                                        <img src="images/result-product-machining/as-roda-4.jpg" alt="Product 5" onclick="machiningOpenModal(4)" class="gallery-thumb" loading="lazy">
                                     </div>`;
                             } else {
                                 mediaHtml = `<img src="${p.image}" alt="${p.title}" loading="lazy">`;
                             }
+
+                            const linksHtml = (p.links || []).map(l => {
+                                const ext = l.external ? ' target="_blank" rel="noopener noreferrer"' : '';
+                                return `<a class="project-link" href="${l.href}"${ext}><i class="fas fa-external-link-alt"></i> ${l.label}</a>`;
+                            }).join(' ');
 
                             article.innerHTML = `
                                 ${mediaHtml}
@@ -256,12 +278,7 @@
                                     <h3>${p.title}</h3>
                                     <p>${p.description}</p>
                                     ${p.meta ? `<p style="font-size: 0.9rem; color: var(--muted-text); margin-top: 8px;"><i class="${p.icon || 'fas fa-star'}"></i> ${p.meta}</p>` : ''}
-                                    <p style="margin-top:8px;">
-                                        ${p.links.map(l => {
-                                const ext = l.external ? ` target="_blank" rel="noopener noreferrer"` : '';
-                                return `<a class="project-link" href="${l.href}"${ext}><i class="fas fa-external-link-alt"></i> ${l.label}</a>`
-                            }).join(' ')}
-                                    </p>
+                                    <p style="margin-top:8px;">${linksHtml}</p>
                                 </div>`;
 
                             return article;
@@ -269,11 +286,16 @@
 
                         // Append projects from data, but don't remove existing static cards.
                         // Skip items already present (use data-project-id to avoid duplicates).
-                                                                 {
-                            const existing = grid.querySelector(`[data-pro                                                              if (existing) return; // already present (static or previously rendered)
-                                                             rd(p);
+                        window.PROJECTS.forEach(p => {
+                            const byId = p.id ? grid.querySelector(`[data-project-id="${p.id}"]`) : null;
+                            const byImage = p.image ? grid.querySelector(`img[src="${p.image}"]`) : null;
+                            const byTitle = Array.from(grid.querySelectorAll('h3')).some(h => h.textContent.trim() === (p.title || '').trim());
+
+                            if (byId || byImage || byTitle) return; // already present
+
+                            const card = createCard(p);
                             // mark dynamically created cards with data-project-id
-                            card.setAttribute('data-project-id', p.id || '');
+                            if (p.id) card.setAttribute('data-project-id', p.id);
                             grid.appendChild(card);
                         });
                     })();
