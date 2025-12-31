@@ -1,0 +1,11 @@
+{
+  "name": "sapnap-portfolio",
+  "version": "1.0.0",
+  "description": "Portfolio site assets and helper scripts",
+  "scripts": {
+    "optimize-images": "node scripts/optimize-images.js"
+  },
+  "devDependencies": {
+    "sharp": "^0.32.0"
+  }
+}

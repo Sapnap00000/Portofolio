@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="All work projects and portfolio - Jay's Portfolio">
+    <meta name="keywords" content="projects, portfolio, web development">
+    <link rel="icon" href="images/fav-icon.png" type="image/png">
+    <title>Work Showcase - Jay Portfolio</title>
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+
+    <!-- Font Awesome Icons -->
+    <script src="https://kit.fontawesome.com/05e172e30f.js" crossorigin="anonymous"></script>
+
+    <style>
+        .projects-hero {
+            padding: 3rem 1rem;
+            text-align: center;
+            background: linear-gradient(180deg, rgba(10, 12, 18, 0.4), rgba(8, 10, 16, 0.2));
+            border-radius: 12px;
+            margin-bottom: 3rem;
+        }
+
+        .projects-hero h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #00ff88, #00e0ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .projects-hero p {
+            font-size: 1.1rem;
+            color: var(--muted-text);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 2rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .back-link:hover {
+            gap: 12px;
+            color: var(--accent-color);
+        }
+
+        .back-link i {
+            font-size: 1rem;
+        }
+    </style>
+</head>
+
+<body data-bs-spy="scroll" data-bs-target="navbar" data-bs-offset="0">
+    <!-- Interactive background canvas -->
+    <canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+    <!-- Navigation Header -->
+    <header>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
+            <div class="container-fluid">
+                <a class="navbar-brand fw-bold" href="index.html">Jay Portfolio</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <svg class="hamburger-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="3" y1="6" x2="21" y2="6" class="hamburger-line line-top"></line>
+                        <line x1="3" y1="12" x2="21" y2="12" class="hamburger-line line-mid"></line>
+                        <line x1="3" y1="18" x2="21" y2="18" class="hamburger-line line-bottom"></line>
+                    </svg>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html#hero">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html#about">About me</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="projects.html">Work Showcase</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html#contact">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <section class="projects-section">
+            <div class="container">
+                <a href="index.html#projects" class="back-link">
+                    <i class="fas fa-arrow-left"></i> Kembali ke halaman utama
+                </a>
+
+                <div class="projects-hero">
+                    <h1>Work Showcase</h1>
+                    <p>Koleksi lengkap dari semua project dan karya saya. Dari fotografi, web development, hingga
+                        dokumentasi visual.</p>
+                </div>
+
+                <div class="projects-grid" id="projects-grid">
+                    <!-- Photography Collections -->
+                    <article class="project-card">
+                        <img src="images/photography-collections/1.jpg" alt="Photography project" loading="lazy">
+                        <div class="project-content">
+                            <div class="project-badge"><img src="images/ornament.svg" alt=""></div>
+                            <h3>Photography collections</h3>
+                            <p>Serangkaian foto personal — landscape, portrait, dan street photography. Koleksi ini
+                                merekam momen dan suasana yang saya temui saat eksplorasi visual.</p>
+                            <p style="font-size: 0.9rem; color: var(--muted-text); margin-top: 8px;">
+                                <i class="fas fa-images"></i> 12+ Foto
+                            </p>
+                            <a href="photography.html" class="project-link">
+                                <i class="fas fa-images"></i> Lihat Galeri Lengkap
+                            </a>
+                        </div>
+                    </article>
+
+                    <!-- Nature Exploration -->
+                    <article class="project-card">
+                        <img src="images/image-1.jpeg" alt="Photography project" loading="lazy">
+                        <div class="project-content">
+                            <div class="project-badge"><img src="images/ornament.svg" alt=""></div>
+                            <h3>Nature Exploration</h3>
+                            <p>Exploring natural landscapes and capturing moments that inspire.
+                                Each photo tells a story of adventure and discovery. Dokumentasi perjalanan visual
+                                melalui alam.</p>
+                            <p style="font-size: 0.9rem; color: var(--muted-text); margin-top: 8px;">
+                                <i class="fas fa-tree"></i> Landscape & Adventure
+                            </p>
+                        </div>
+                    </article>
+
+                    <!-- Travel Journey -->
+                    <article class="project-card">
+                        <img src="images/image-1.jpeg" alt="Scenic photography" loading="lazy">
+                        <div class="project-content">
+                            <div class="project-badge"><img src="images/ornament.svg" alt=""></div>
+                            <h3>Travel Journey</h3>
+                            <p>Documentation of my travel experiences and scenic views from
+                                different locations across beautiful landscapes. Perjalanan visual ke berbagai tempat
+                                indah.</p>
+                            <p style="font-size: 0.9rem; color: var(--muted-text); margin-top: 8px;">
+                                <i class="fas fa-map"></i> Travel & Exploration
+                            </p>
+                        </div>
+                    </article>
+
+                    <!-- Sapnap Link Tree -->
+                    <article class="project-card">
+                        <img src="images/link-tree.png" alt="Web preview" loading="lazy">
+                        <div class="project-content">
+                            <div class="project-badge"><img src="images/ornament.svg" alt=""></div>
+                            <h3>Sapnap Link Tree</h3>
+                            <p>Website pohon tautan yang menghubungkan berbagai media sosial dan konten penting. Dengan
+                                tampilan yang
+                                estetik, modern dan responsif. Web ini dikembangkan menggunakan HTML, CSS, dan
+                                JavaScript.</p>
+                            <p style="font-size: 0.9rem; color: var(--muted-text); margin-top: 8px;">
+                                <i class="fas fa-code"></i> HTML • CSS • JavaScript
+                            </p>
+                            <a href="https://sapnap00000.github.io/Link-Tree/HomePage.html" class="project-link"
+                                target="_blank" rel="noopener noreferrer">
+                                <i class="fas fa-external-link-alt"></i> Buka Link Tree
+                            </a>
+                        </div>
+                    </article>
+
+                    <!-- TopUp.com (rendered dynamically if data/projects.js is present) -->
+                </div>
+
+                <script src="data/projects.js"></script>
+                <script>
+                    // Render projects from window.PROJECTS if available
+                    (function () {
+                        const grid = document.getElementById('projects-grid');
+                        if (!grid) return;
+                        if (!window.PROJECTS) return; // keep static as fallback
+
+                        function createCard(p) {
+                            const article = document.createElement('article');
+                            article.className = 'project-card';
+                            article.innerHTML = `
+                                <img src="${p.image}" alt="${p.title}" loading="lazy">
+                                <div class="project-content">
+                                    <div class="project-badge"><img src="images/ornament.svg" alt=""></div>
+                                    <h3>${p.title}</h3>
+                                    <p>${p.description}</p>
+                                    ${p.meta ? `<p style="font-size: 0.9rem; color: var(--muted-text); margin-top: 8px;"><i class="${p.icon || 'fas fa-star'}"></i> ${p.meta}</p>` : ''}
+                                    <p style="margin-top:8px;">
+                                        ${p.links.map(l => {
+                                const ext = l.external ? ` target="_blank" rel="noopener noreferrer"` : '';
+                                return `<a class="project-link" href="${l.href}"${ext}><i class="fas fa-external-link-alt"></i> ${l.label}</a>`
+                            }).join(' ')}
+                                    </p>
+                                </div>`;
+                            return article;
+                        }
+
+                        // clear existing static grid then render from data
+                        grid.innerHTML = '';
+                        window.PROJECTS.forEach(p => grid.appendChild(createCard(p)));
+                    })();
+                </script>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Sapnap Portfolio. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
+        crossorigin="anonymous"></script>
+
+    <!-- Custom JavaScript -->
+    <script src="js/script.js"></script>
+</body>
+
+</html>

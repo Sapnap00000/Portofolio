@@ -1,0 +1,73 @@
+<!-- Project card templates for Sapnap Portfolio
+
+  Copy one of these snippets into projects.html or index.html
+  and replace placeholder text / image paths.
+
+  Variants:
+  - Simple card (image top)
+  - Feature card (large showcase)
+  - Small card (compact)
+  - Code project card (with repo/demo links)
+-->
+
+<!-- 1) Simple card (image on top) -->
+<article class="project-card">
+    <img src="images/placeholder.jpg" alt="Project image">
+    <div class="project-content">
+        <div class="project-badge"><img src="images/ornament.svg" alt=""></div>
+        <h3>Project Title</h3>
+        <p class="muted">Short description (1–2 lines) that explains the project's purpose.</p>
+        <p style="margin-top:8px;">
+            <a href="#" class="project-link" target="_blank" rel="noopener noreferrer">
+                <i class="fas fa-external-link-alt"></i> Live demo / details
+            </a>
+        </p>
+    </div>
+</article>
+
+<!-- 2) Feature card (bigger visual emphasis) -->
+<article class="project-card project-card-feature">
+    <div style="display:flex;gap:18px;align-items:stretch;">
+        <div style="flex:1;min-width:240px;">
+            <img src="images/placeholder-large.jpg" alt="Feature image"
+                style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div style="flex:1.2;padding:12px;">
+            <h3>Featured Project</h3>
+            <p class="muted">A slightly longer summary that highlights results, tech used, and impact (metrics if
+                available).</p>
+            <p class="muted">Tech: HTML • CSS • JavaScript • CNC</p>
+            <p style="margin-top:8px;">
+                <a href="#" class="project-link"><i class="fas fa-info-circle"></i> Read case study</a>
+                <a href="#" class="project-link" style="margin-left:8px;"><i class="fas fa-external-link-alt"></i> View
+                    files</a>
+            </p>
+        </div>
+    </div>
+</article>
+
+<!-- 3) Small compact card (use when listing many projects) -->
+<article class="project-card project-card-compact">
+    <div style="display:flex;gap:12px;align-items:center;">
+        <img src="images/placeholder-small.jpg" alt="thumb"
+            style="width:84px;height:64px;object-fit:cover;border-radius:6px;">
+        <div>
+            <h4 style="margin:0;font-size:1rem;">Mini Project Title</h4>
+            <p style="margin:4px 0 0;color:var(--muted-text);font-size:0.9rem;">1-line summary</p>
+        </div>
+    </div>
+</article>
+
+<!-- 4) Code project card (show repo + demo links) -->
+<article class="project-card">
+    <img src="images/placeholder-code.jpg" alt="Code project">
+    <div class="project-content">
+        <h3>Code Project</h3>
+        <p class="muted">Short description and what this repo demonstrates.</p>
+        <p style="margin-top:8px;">
+            <a href="#" class="project-link" target="_blank"><i class="fab fa-github"></i> View source</a>
+            <a href="#" class="project-link" style="margin-left:8px;"><i class="fas fa-external-link-alt"></i> Live
+                demo</a>
+        </p>
+    </div>
+</article>

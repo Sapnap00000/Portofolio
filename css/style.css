@@ -592,6 +592,11 @@ header::after {
   border-left-color: #00ff88;
 }
 
+.about-heading-cert {
+  color: var(--accent2);
+  border-left-color: var(--accent2);
+}
+
 /* Items (education, experience) */
 .about-item {
   margin-bottom: 1.5rem;
@@ -806,6 +811,36 @@ header::after {
   font-size: 0.95rem;
   line-height: 1.5;
   flex-grow: 1;
+}
+
+/* Project Link Style */
+.project-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  margin-top: 12px;
+  background: linear-gradient(135deg, rgba(0,255,136,0.15), rgba(0,224,255,0.15));
+  color: var(--primary-color);
+  border: 1px solid rgba(0,255,136,0.4);
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: var(--transition);
+  cursor: pointer;
+}
+
+.project-link:hover {
+  background: linear-gradient(135deg, rgba(0,255,136,0.3), rgba(0,224,255,0.3));
+  border-color: rgba(0,255,136,0.8);
+  color: var(--accent-color);
+  transform: translateX(4px);
+  box-shadow: 0 6px 20px rgba(0,255,136,0.2);
+}
+
+.project-link i {
+  font-size: 0.85rem;
 }
 
 /* Project card badge */
@@ -1463,59 +1498,7 @@ section {
 }
 
 /* ================================
-   WALLPAPER / ASSETS SECTION
-   ================================ */
-.wallpaper-section {
-  padding: 3.5rem 0;
-}
-.section-sub {
-  text-align: center;
-  color: rgba(220,230,255,0.72);
-  max-width: 760px;
-  margin: 0 auto 1.6rem;
-}
-.wallpaper-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 22px;
-  margin-top: 1.6rem;
-}
-.wallpaper-card {
-  height: 220px;
-  border-radius: 12px;
-  background-position: center;
-  background-size: cover;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 18px 50px rgba(2,6,23,0.65);
-  transition: transform 0.38s ease, box-shadow 0.38s ease;
-}
-.wallpaper-card .overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(2,6,12,0.28), rgba(2,6,12,0.6));
-  display: flex;
-  align-items: flex-end;
-  padding: 18px;
-}
-.wallpaper-card h3 {
-  margin: 0;
-  color: var(--white);
-  font-size: 1.1rem;
-}
-.wallpaper-card p.muted {
-  margin: 4px 0 0;
-  color: rgba(200,210,255,0.7);
-  font-size: 0.88rem;
-}
-.wallpaper-card:hover {
-  transform: translateY(-10px) scale(1.02);
-  box-shadow: 0 30px 80px rgba(0,0,0,0.7), 0 0 36px rgba(0,0,0,0.35) inset;
-}
-
-@media (max-width: 520px) {
-  .wallpaper-card { height: 160px; }
-}
+/* Wallpaper / assets removed — unused in portfolio */
 
 /* ================================
    PROJECTS SECTION
