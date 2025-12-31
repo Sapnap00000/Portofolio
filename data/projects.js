@@ -75,4 +75,15 @@ window.PROJECTS = [
       },
     ],
   },
+  {
+    id: "Machining-Product",
+    title: "Manual Machining Product",
+    description:
+      "Produk hasil dari proses manual machining yang saya kerjakan. Menampilkan detail dan presisi dari pengerjaan manual machining.",
+    image: "images/result-product-machining/as-roda-0.jpg",
+    meta: "Fraising • Turning",
+    icon: "fas fa-compass-drafting",
+    tags: ["product", "machining"],
+    links: [],
+  },
 ];

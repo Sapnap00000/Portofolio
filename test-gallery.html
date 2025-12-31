@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery Popup Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #0a0c12;
+            color: #e6f4ff;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: #00ff88;
+            margin-bottom: 30px;
+        }
+
+        .test-section {
+            background: rgba(10, 12, 18, 0.5);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .gallery-thumbnail {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .gallery-thumbnail:hover {
+            border-color: rgba(0, 255, 136, 0.8);
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+            transform: scale(1.05);
+        }
+
+        .btn {
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.5);
+            color: #00ff88;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: rgba(0, 255, 136, 0.2);
+            box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+        }
+
+        .console-log {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: #00ff88;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🖼️ Gallery Popup Test</h1>
+
+        <div class="test-section">
+            <h3>Test Gallery - 5 Machining Product Images</h3>
+
+            <div class="gallery-grid" id="testGallery">
+                <img src="images/result-product-machining/as-roda-0.jpg" alt="Product 1" class="gallery-thumbnail"
+                    onclick="openTestGallery(0)">
+                <img src="images/result-product-machining/as-roda-1.jpg" alt="Product 2" class="gallery-thumbnail"
+                    onclick="openTestGallery(1)">
+                <img src="images/result-product-machining/as-roda-2.jpg" alt="Product 3" class="gallery-thumbnail"
+                    onclick="openTestGallery(2)">
+                <img src="images/result-product-machining/as-roda-3.jpg" alt="Product 4" class="gallery-thumbnail"
+                    onclick="openTestGallery(3)">
+                <img src="images/result-product-machining/as-roda-4.jpg" alt="Product 5" class="gallery-thumbnail"
+                    onclick="openTestGallery(4)">
+            </div>
+
+            <button class="btn" onclick="openTestGallery(0)">📂 Open Gallery</button>
+            <button class="btn" onclick="closeTestGallery()">❌ Close Gallery</button>
+        </div>
+
+        <div class="test-section">
+            <h3>Console Output</h3>
+            <div class="console-log" id="consoleLog"></div>
+            <button class="btn" onclick="clearConsole()">Clear</button>
+        </div>
+    </div>
+
+    <!-- Gallery Modal -->
+    <div id="testModal" style="
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 9999;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(5px);
+    ">
+        <div style="
+            position: relative;
+            background: rgba(10, 12, 18, 0.95);
+            border: 2px solid #00ff88;
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 80vw;
+            max-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        ">
+            <button onclick="closeTestGallery()" style="
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                background: transparent;
+                border: none;
+                color: #00ff88;
+                font-size: 24px;
+                cursor: pointer;
+            ">✕</button>
+
+            <img id="testModalImage" src="" alt="Gallery" style="
+                max-width: 100%;
+                max-height: 60vh;
+                object-fit: contain;
+                border-radius: 8px;
+            ">
+
+            <div style="display: flex; gap: 20px; align-items: center;">
+                <button onclick="prevTestImage()" style="
+                    width: 40px;
+                    height: 40px;
+                    background: rgba(0, 255, 136, 0.1);
+                    border: 1px solid #00ff88;
+                    color: #00ff88;
+                    border-radius: 50%;
+                    cursor: pointer;
+                    font-size: 18px;
+                ">❮</button>
+
+                <span id="testCounter" style="color: #00ff88; font-weight: 600; min-width: 60px; text-align: center;">1
+                    / 5</span>
+
+                <button onclick="nextTestImage()" style="
+                    width: 40px;
+                    height: 40px;
+                    background: rgba(0, 255, 136, 0.1);
+                    border: 1px solid #00ff88;
+                    color: #00ff88;
+                    border-radius: 50%;
+                    cursor: pointer;
+                    font-size: 18px;
+                ">❯</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const testImages = [
+            "images/result-product-machining/as-roda-0.jpg",
+            "images/result-product-machining/as-roda-1.jpg",
+            "images/result-product-machining/as-roda-2.jpg",
+            "images/result-product-machining/as-roda-3.jpg",
+            "images/result-product-machining/as-roda-4.jpg"
+        ];
+
+        let currentTestIndex = 0;
+
+        function log(message) {
+            const now = new Date().toLocaleTimeString();
+            const consoleLog = document.getElementById('consoleLog');
+            consoleLog.innerHTML += `<div>[${now}] ${message}</div>`;
+            consoleLog.scrollTop = consoleLog.scrollHeight;
+        }
+
+        function clearConsole() {
+            document.getElementById('consoleLog').innerHTML = '';
+        }
+
+        function openTestGallery(index) {
+            currentTestIndex = index || 0;
+            const modal = document.getElementById('testModal');
+            const img = document.getElementById('testModalImage');
+
+            img.src = testImages[currentTestIndex];
+            modal.style.display = 'flex';
+            updateTestCounter();
+
+            log(`✅ Gallery opened at image ${currentTestIndex + 1}`);
+        }
+
+        function closeTestGallery() {
+            document.getElementById('testModal').style.display = 'none';
+            log('❌ Gallery closed');
+        }
+
+        function nextTestImage() {
+            currentTestIndex = (currentTestIndex + 1) % testImages.length;
+            document.getElementById('testModalImage').src = testImages[currentTestIndex];
+            updateTestCounter();
+            log(`➡️ Next image: ${currentTestIndex + 1}`);
+        }
+
+        function prevTestImage() {
+            currentTestIndex = (currentTestIndex - 1 + testImages.length) % testImages.length;
+            document.getElementById('testModalImage').src = testImages[currentTestIndex];
+            updateTestCounter();
+            log(`⬅️ Previous image: ${currentTestIndex + 1}`);
+        }
+
+        function updateTestCounter() {
+            document.getElementById('testCounter').textContent = `${currentTestIndex + 1} / ${testImages.length}`;
+        }
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            const modal = document.getElementById('testModal');
+            if (modal.style.display === 'flex') {
+                if (e.key === 'ArrowRight') nextTestImage();
+                if (e.key === 'ArrowLeft') prevTestImage();
+                if (e.key === 'Escape') closeTestGallery();
+            }
+        });
+
+        log('🚀 Gallery test initialized');
+    </script>
+</body>
+
+</html>

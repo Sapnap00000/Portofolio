@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
   initScrollEffects();
   initCardInteractions();
   initContactLinks();
+  initMachiningGalleryPopup(); // Initialize machining gallery popup
 
   // Log startup message
   console.log("✨ Welcome to Jay Portfolio!");
@@ -154,7 +155,7 @@ function showCelebration() {
 function initParticles() {
   const canvas = document.getElementById("bg-canvas");
   if (!canvas) return;
-  
+
   const ctx = canvas.getContext("2d");
   let w = (canvas.width = innerWidth);
   let h = (canvas.height = innerHeight);
@@ -237,7 +238,7 @@ function initParticles() {
  */
 function initCardInteractions() {
   const cards = document.querySelectorAll(".project-card");
-  
+
   cards.forEach((card) => {
     // Tilt effect on mouse move
     card.addEventListener("mousemove", (e) => {
@@ -346,3 +347,168 @@ function isValidEmail(email) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
 }
+/**
+ * ================================
+ * GALLERY MODAL - MACHINING GALLERY
+ * ================================
+ */
+
+/**
+ * Initialize gallery modal for machining product images
+ */
+// initGalleryModal() and wrapper shims removed — consolidated to initMachiningGalleryPopup()
+
+/**
+ * ================================
+ * MACHINING GALLERY POPUP - SIMPLE INITIALIZATION
+ * ================================
+ */
+
+function initMachiningGalleryPopup() {
+  console.log("🎬 Machining Gallery Popup Initialized");
+
+  // Create modal HTML
+  let modal = document.getElementById("machining-modal");
+  if (!modal) {
+    modal = document.createElement("div");
+    modal.id = "machining-modal";
+    modal.innerHTML = `
+      <div class="machining-modal-wrapper">
+        <button class="machining-modal-close" onclick="machiningCloseModal()">&times;</button>
+        <img id="machining-modal-img" class="machining-modal-image" src="" alt="Machining Product">
+        <div class="machining-modal-nav">
+          <button class="machining-modal-btn" onclick="machiningPrevImage()">❮</button>
+          <span class="machining-modal-counter"><span id="machining-current">1</span>/5</span>
+          <button class="machining-modal-btn" onclick="machiningNextImage()">❯</button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modal);
+    console.log("✅ Modal created");
+  }
+
+  // Global gallery state
+  window.machiningGallery = {
+    currentIndex: 0,
+    images: [
+      "images/result-product-machining/as-roda-0.jpg",
+      "images/result-product-machining/as-roda-1.jpg",
+      "images/result-product-machining/as-roda-2.jpg",
+      "images/result-product-machining/as-roda-3.jpg",
+      "images/result-product-machining/as-roda-4.jpg",
+    ],
+  };
+
+  console.log(
+    "✅ Gallery state initialized with",
+    window.machiningGallery.images.length,
+    "images"
+  );
+
+  // Close modal on background click
+  modal.addEventListener("click", function (e) {
+    if (e.target === modal) {
+      machiningCloseModal();
+    }
+  });
+
+  // Keyboard navigation
+  document.addEventListener("keydown", function (e) {
+    if (!modal.classList.contains("show")) return;
+    if (e.key === "ArrowRight") machiningNextImage();
+    if (e.key === "ArrowLeft") machiningPrevImage();
+    if (e.key === "Escape") machiningCloseModal();
+  });
+}
+
+// Open modal with specific image
+function machiningOpenModal(index) {
+  if (!window.machiningGallery) {
+    console.error("❌ Gallery not initialized!");
+    return;
+  }
+
+  window.machiningGallery.currentIndex = index;
+  const modal = document.getElementById("machining-modal");
+  const img = document.getElementById("machining-modal-img");
+  const counter = document.getElementById("machining-current");
+
+  const imageSrc = window.machiningGallery.images[index];
+  img.src = imageSrc;
+  // Log and fallback if image fails to load (helpful when extensions block resources)
+  img.onerror = function (err) {
+    console.error("🛑 Failed to load machining image:", imageSrc, err);
+    // show a small placeholder so user sees UI
+    try {
+      img.src = "images/placeholder-small.jpg";
+    } catch (e) {
+      console.error("Fallback placeholder missing", e);
+    }
+  };
+  counter.textContent = index + 1;
+
+  modal.classList.add("show");
+  document.body.style.overflow = "hidden";
+
+  console.log("📸 Opened image:", index + 1, "-", imageSrc);
+}
+
+// Close modal
+function machiningCloseModal() {
+  const modal = document.getElementById("machining-modal");
+  if (modal) {
+    modal.classList.remove("show");
+    document.body.style.overflow = "auto";
+    console.log("❌ Modal closed");
+  }
+}
+
+// Next image
+function machiningNextImage() {
+  if (!window.machiningGallery) return;
+
+  window.machiningGallery.currentIndex =
+    (window.machiningGallery.currentIndex + 1) % 5;
+  const index = window.machiningGallery.currentIndex;
+  const img = document.getElementById("machining-modal-img");
+  const counter = document.getElementById("machining-current");
+
+  img.src = window.machiningGallery.images[index];
+  counter.textContent = index + 1;
+
+  console.log("➡️ Next image:", index + 1);
+}
+
+// Previous image
+function machiningPrevImage() {
+  if (!window.machiningGallery) return;
+
+  window.machiningGallery.currentIndex =
+    (window.machiningGallery.currentIndex - 1 + 5) % 5;
+  const index = window.machiningGallery.currentIndex;
+  const img = document.getElementById("machining-modal-img");
+  const counter = document.getElementById("machining-current");
+
+  img.src = window.machiningGallery.images[index];
+  counter.textContent = index + 1;
+
+  console.log("⬅️ Previous image:", index + 1);
+}
+
+// Fallback: ensure gallery initialized if earlier init failed (race or error)
+setTimeout(function () {
+  try {
+    if (
+      !window.machiningGallery ||
+      !Array.isArray(window.machiningGallery.images)
+    ) {
+      console.warn(
+        "⚠️ machiningGallery not present — running initMachiningGalleryPopup() fallback"
+      );
+      if (typeof initMachiningGalleryPopup === "function")
+        initMachiningGalleryPopup();
+    }
+  } catch (err) {
+    console.error("Fallback init failed:", err);
+  }
+}, 400);

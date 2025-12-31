@@ -185,8 +185,47 @@
                             </a>
                         </div>
                     </article>
+                    <!-- Result product manual machining -->
+                    <article class="project-card">
+                        <div class="machining-gallery-preview">
+                            <img src="images/result-product-machining/as-roda-0.jpg" alt="Product 1" onclick="machiningOpenModal(0)"
+                                class="gallery-thumb" loading="lazy">
+                            <img src="images/result-product-machining/as-roda-1.jpg" alt="Product 2" onclick="machiningOpenModal(1)"
+                                class="gallery-thumb" loading="lazy">
+                            <img src="images/result-product-machining/as-roda-2.jpg" alt="Product 3" onclick="machiningOpenModal(2)"
+                                class="gallery-thumb" loading="lazy">
+                            <img src="images/result-product-machining/as-roda-3.jpg" alt="Product 4" onclick="machiningOpenModal(3)"
+                                class="gallery-thumb" loading="lazy">
+                            <img src="images/result-product-machining/as-roda-4.jpg" alt="Product 5" onclick="machiningOpenModal(4)"
+                                class="gallery-thumb" loading="lazy">
+                        </div>
+                        <div class="project-content">
+                            <div class="project-badge"><img src="images/ornament.svg" alt=""></div>
+                            <h3>Result Product Manual Machining</h3>
+                            <p>Dokumentasi hasil produksi manual machining dengan teknologi presisi tinggi. Koleksi foto menampilkan
+                                berbagai produk yang telah dihasilkan dengan detail dan kualitas terbaik.</p>
+                            <p style="font-size: 0.9rem; color: var(--muted-text); margin-top: 8px;">
+                                <i class="fas fa-cog"></i> Machining • Production • Gallery
+                            </p>
+                        </div>
+                    </article>
 
                     <!-- TopUp.com (rendered dynamically if data/projects.js is present) -->
+                    <article class="project-card" data-project-id="topup">
+                        <img src="images/topup.com.png" alt="TopUp.com" loading="lazy">
+                        <div class="project-content">
+                            <div class="project-badge"><img src="images/ornament.svg" alt=""></div>
+                            <h3>TopUp.com</h3>
+                            <p>Website topup game yang saya buat dengan menggunakan HTML, CSS, dan JavaScript. Tampilan modern dan
+                                user-friendly.</p>
+                            <p style="font-size: 0.9rem; color: var(--muted-text); margin-top: 8px;"><i class="fas fa-code"></i> HTML • CSS
+                                • JavaScript</p>
+                            <a class="project-link" href="https://sapnap00000.github.io/TopUp.com/TopUp.com.html" target="_blank"
+                                rel="noopener noreferrer">
+                                <i class="fas fa-external-link-alt"></i> Buka TopUp.com
+                            </a>
+                        </div>
+                    </article>
                 </div>
 
                 <script src="data/projects.js"></script>
@@ -200,8 +239,18 @@
                         function createCard(p) {
                             const article = document.createElement('article');
                             article.className = 'project-card';
+
+                            // If this is the machining product, render the 5-image preview grid
+                            let mn                     ml = `
+                    <div clas    -preview">
+             src="imag        ing/as-roda-0.jpg" alt="Product 1" on             thumb" loading                 <img src="images/result-product-machining                ngOpenModal(1)" c                                             <img src="images/res                            odal(2)" class="gallery-thu                            <img src="images/result-product-machining/as-roda-3.j            "machiningOpenModal(3)" class="gallery-thumb                                                   <img src="images/result-product-machining/as-roda-4.jpg" alt="Product 5" onclick="machiningOpenModal(4)" class="gallery-thumb" loading="lazy">
+                                    </div>`;
+                            } else {
+                                mediaHtml = `<img src="${p.image}" alt="${p.title}" loading="lazy">`;
+                            }
+
                             article.innerHTML = `
-                                <img src="${p.image}" alt="${p.title}" loading="lazy">
+                                ${mediaHtml}
                                 <div class="project-content">
                                     <div class="project-badge"><img src="images/ornament.svg" alt=""></div>
                                     <h3>${p.title}</h3>
@@ -214,12 +263,19 @@
                             }).join(' ')}
                                     </p>
                                 </div>`;
+
                             return article;
                         }
 
-                        // clear existing static grid then render from data
-                        grid.innerHTML = '';
-                        window.PROJECTS.forEach(p => grid.appendChild(createCard(p)));
+                        // Append projects from data, but don't remove existing static cards.
+                        // Skip items already present (use data-project-id to avoid duplicates).
+                                                                 {
+                            const existing = grid.querySelector(`[data-pro                                                              if (existing) return; // already present (static or previously rendered)
+                                                             rd(p);
+                            // mark dynamically created cards with data-project-id
+                            card.setAttribute('data-project-id', p.id || '');
+                            grid.appendChild(card);
+                        });
                     })();
                 </script>
             </div>
